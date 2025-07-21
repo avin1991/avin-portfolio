@@ -1,140 +1,280 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avin Web Developer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; animation: fadeIn 1s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        header { background-color: #27374D; color: white; padding: 20px; text-align: center; }
-        nav { background-color: #526D82; padding: 10px; text-align: center; }
-        nav a, .lang-select { color: #000; margin: 0 15px; text-decoration: none; cursor: pointer; }
-        section { padding: 30px; background-color: #F5F5F5; }
-        .card { background-color: white; padding: 20px; margin: 10px auto; max-width: 600px; box-shadow: 0 0 10px rgba(0,0,0,0.1); animation: slideIn 0.5s ease-in-out; }
-        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        footer { background-color: #27374D; color: white; text-align: center; padding: 15px; }
-        .btn { display: inline-block; padding: 10px 20px; background-color: #3F72AF; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease; }
-        .btn:hover { background-color: #2C5A9B; }
-        ul { list-style-type: none; padding-left: 0; }
-        ul li { margin-bottom: 10px; }
-        ul li::before { content: "\f00c"; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 10px; color: green; }
-        input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avin Bhagwan Shama - Web Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #27374D, #526D82);
+      padding: 40px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    header h1 { margin: 0; font-size: 2.5em; }
+    header p { margin: 10px 0 0; font-size: 1.2em; }
+
+    nav {
+      background-color: #3F72AF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .lang-select {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: #3F72AF;
+      font-weight: bold;
+      font-size: 1em;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .lang-select:hover {
+      background-color: #e6f0ff;
+      color: #2C5A9B;
+    }
+
+    section { padding: 40px 20px; }
+
+    .card {
+      background: white;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover { transform: translateY(-5px); }
+
+    ul { padding-left: 0; list-style: none; }
+    ul li {
+      margin: 10px 0;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "\f00c";
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: #3F72AF;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button.btn {
+      background-color: #3F72AF;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.btn:hover {
+      background-color: #2C5A9B;
+    }
+
+    footer {
+      background-color: #27374D;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8em; }
+      nav a, .lang-select { margin: 5px; }
+    }
+
+    /* Popup Styling */
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #popup .popup-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    #popup .popup-content h3 {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
 
 <header>
-    <h1 data-lang="name">Avin Bhagwan Shama</h1>
-    <p data-lang="title">HTML Website Developer</p>
+  <h1 data-lang="name">Avin Bhagwan Shama</h1>
+  <p data-lang="title">Website Developer</p>
 </header>
 
 <nav>
-    <a href="#about" data-lang="about_link" style="color: #fff;">About Me</a>
-    <a href="#services" data-lang="services_link" style="color: #fff;">Services</a>
-    <a href="#contact" data-lang="contact_link" style="color: #fff;">Contact</a>
-    <select class="lang-select" onchange="changeLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="mr">Marathi</option>
-        <option value="hi">Hindi</option>
-    </select>
+  <a href="#about" data-lang="about_link">About Me</a>
+  <a href="#services" data-lang="services_link">Services</a>
+  <a href="#contact" data-lang="contact_link">Contact</a>
+  <select class="lang-select" onchange="changeLanguage(this.value)">
+    <option value="en">English</option>
+    <option value="mr">Marathi</option>
+    <option value="hi">Hindi</option>
+  </select>
 </nav>
 
 <section id="about">
-    <div class="card">
-        <h2 data-lang="who_am_i">Who am I?</h2>
-        <p data-lang="about_text">I am a frontend website developer. I create beautiful, fast, and mobile-friendly websites using HTML and CSS.</p>
-    </div>
+  <div class="card">
+    <h2 data-lang="who_am_i">Who am I?</h2>
+    <p data-lang="about_text">
+      I am a Website Developer. I create beautiful, fast, and mobile-friendly websites using HTML and CSS.
+      I specialize in building responsive designs, SEO-friendly layouts, and clean code structures.
+      My goal is to deliver modern, user-friendly websites that help businesses grow online.
+    </p>
+  </div>
 </section>
 
 <section id="services">
-    <div class="card">
-        <h2 data-lang="services">Services</h2>
-        <ul>
-            <li data-lang="service1">Responsive HTML Website</li>
-            <li data-lang="service2">Contact Form Integration</li>
-            <li data-lang="service3">Google Map Embed</li>
-            <li data-lang="service4">SEO Friendly Code</li>
-        </ul>
-    </div>
+  <div class="card">
+    <h2 data-lang="services">Services</h2>
+    <ul>
+      <li data-lang="service1">Responsive HTML Website</li>
+      <li data-lang="service2">Contact Form Integration</li>
+      <li data-lang="service3">Google Map Embed</li>
+      <li data-lang="service4">SEO Friendly Code</li>
+      <li data-lang="service5">Mobile Responsive Design</li>
+      <li data-lang="service6">Fast-loading, clean code</li>
+      <li data-lang="service7">E-commerce Website Development</li>
+      <li data-lang="service8">Payment Gateway Integration</li>
+    </ul>
+  </div>
 </section>
 
 <section id="contact">
-    <div class="card">
-        <h2 data-lang="contact">Contact</h2>
-        <form action="https://formspree.io/f/xyzpzrlo" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <input type="tel" name="mobile" placeholder="Your Mobile Number" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button class="btn" type="submit" data-lang="send_btn">Send using Formspree</button>
-        </form>
-    </div>
+  <div class="card">
+    <h2 data-lang="contact">Contact</h2>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <input type="tel" name="mobile" placeholder="Your Mobile Number" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button class="btn" type="submit" data-lang="send_btn">Send using Formspree</button>
+    </form>
+  </div>
 </section>
 
+<!-- Popup -->
+<div id="popup">
+  <div class="popup-content">
+    <h3>Thank you! Your message has been sent.</h3>
+    <button class="btn" onclick="closePopup()">OK</button>
+  </div>
+</div>
+
 <footer>
-    <p>&copy; 2025 <span data-lang="name">Avin Bhagwan Shama</span>. All rights reserved.</p>
+  <p>&copy; 2025 <span data-lang="name">Avin Bhagwan Shama</span>. All rights reserved.</p>
 </footer>
 
 <script>
-    const translations = {
-        en: {
-            name: "Avin Bhagwan Shama",
-            title: "HTML Website Developer",
-            about_link: "About Me",
-            services_link: "Services",
-            contact_link: "Contact",
-            who_am_i: "Who am I?",
-            about_text: "I am a frontend website developer. I create beautiful, fast, and mobile-friendly websites using HTML and CSS.",
-            services: "Services",
-            service1: "Responsive HTML Website",
-            service2: "Contact Form Integration",
-            service3: "Google Map Embed",
-            service4: "SEO Friendly Code",
-            contact: "Contact",
-            send_btn: "Send using Formspree"
-        },
-        mr: {
-            name: "अविन भगवान शामा",
-            title: "HTML वेबसाईट डेव्हलपर",
-            about_link: "माझ्याबद्दल",
-            services_link: "सेवा",
-            contact_link: "संपर्क",
-            who_am_i: "मी कोण आहे?",
-            about_text: "मी एक फ्रंटएंड वेबसाइट डेव्हलपर आहे. मी HTML, CSS वापरून आकर्षक, जलद व मोबाइल-फ्रेंडली वेबसाइट्स तयार करतो.",
-            services: "सेवा",
-            service1: "Responsive HTML वेबसाईट",
-            service2: "Contact Form Integration",
-            service3: "Google Map Embed",
-            service4: "SEO Friendly कोड",
-            contact: "संपर्क करा",
-            send_btn: "Formspree वापरून पाठवा"
-        },
-        hi: {
-            name: "अविन भगवान शामा",
-            title: "HTML वेबसाइट डेवलपर",
-            about_link: "मेरे बारे में",
-            services_link: "सेवाएं",
-            contact_link: "संपर्क करें",
-            who_am_i: "मैं कौन हूँ?",
-            about_text: "मैं एक फ्रंटएंड वेबसाइट डेवलपर हूँ। मैं HTML और CSS का उपयोग करके सुंदर, तेज़ और मोबाइल-फ्रेंडली वेबसाइट बनाता हूँ।",
-            services: "सेवाएं",
-            service1: "Responsive HTML वेबसाइट",
-            service2: "Contact Form Integration",
-            service3: "Google Map Embed",
-            service4: "SEO Friendly कोड",
-            contact: "संपर्क करें",
-            send_btn: "Formspree से भेजें"
-        }
-    };
-
-    function changeLanguage(lang) {
-        document.querySelectorAll('[data-lang]').forEach(el => {
-            const key = el.getAttribute('data-lang');
-            el.innerText = translations[lang][key];
-        });
+  const translations = {
+    en: {
+      name: "Avin Bhagwan Shama", title: "Website Developer",
+      about_link: "About Me", services_link: "Services", contact_link: "Contact",
+      who_am_i: "Who am I?",
+      about_text: "I am a Website Developer. I create beautiful, fast, and mobile-friendly websites using HTML and CSS. I specialize in building responsive designs, SEO-friendly layouts, and clean code structures. My goal is to deliver modern, user-friendly websites that help businesses grow online.",
+      services: "Services",
+      service1: "Responsive HTML Website", service2: "Contact Form Integration",
+      service3: "Google Map Embed", service4: "SEO Friendly Code",
+      service5: "Mobile Responsive Design", service6: "Fast-loading, clean code",
+      service7: "E-commerce Website Development", service8: "Payment Gateway Integration",
+      contact: "Contact", send_btn: "Send using Formspree"
+    },
+    mr: {
+      name: "अविन भगवान शामा", title: "वेबसाईट डेव्हलपर",
+      about_link: "माझ्याबद्दल", services_link: "सेवा", contact_link: "संपर्क",
+      who_am_i: "मी कोण आहे?",
+      about_text: "मी एक वेबसाइट डेव्हलपर आहे. मी HTML आणि CSS वापरून आकर्षक, जलद आणि मोबाइल-फ्रेंडली वेबसाइट तयार करतो...",
+      services: "सेवा",
+      service1: "Responsive HTML वेबसाईट", service2: "Contact Form Integration",
+      service3: "Google Map Embed", service4: "SEO Friendly कोड",
+      service5: "मोबाईलसाठी उपयुक्त डिझाईन", service6: "फास्ट लोडिंग व क्लीन कोड",
+      service7: "ई-कॉमर्स वेबसाइट डेव्हलपमेंट", service8: "पेमेंट गेटवे इंटिग्रेशन",
+      contact: "संपर्क", send_btn: "Formspree वापरून पाठवा"
+    },
+    hi: {
+      name: "अविन भगवान शामा", title: "वेबसाइट डेवलपर",
+      about_link: "मेरे बारे में", services_link: "सेवाएं", contact_link: "संपर्क करें",
+      who_am_i: "मैं कौन हूँ?",
+      about_text: "मैं एक वेबसाइट डेवलपर हूँ। मैं HTML और CSS का उपयोग करके सुंदर, तेज़ और मोबाइल-फ्रेंडली वेबसाइट बनाता हूँ...",
+      services: "सेवाएं",
+      service1: "Responsive HTML वेबसाइट", service2: "Contact Form Integration",
+      service3: "Google Map Embed", service4: "SEO Friendly कोड",
+      service5: "मोबाइल उत्तरदायी डिज़ाइन", service6: "तेज़ और साफ़ कोडिंग",
+      service7: "ई-कॉमर्स वेबसाइट विकास", service8: "पेमेंट गेटवे एकीकरण",
+      contact: "संपर्क करें", send_btn: "Formspree से भेजें"
     }
+  };
+
+  function changeLanguage(lang) {
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      const key = el.getAttribute('data-lang');
+      el.innerText = translations[lang][key];
+    });
+  }
+
+  // Show popup on form submit
+  document.getElementById("contactForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // prevent real submission
+    document.getElementById("popup").style.display = "flex";
+  });
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("contactForm").reset(); // clear the form
+  }
 </script>
 
 </body>
